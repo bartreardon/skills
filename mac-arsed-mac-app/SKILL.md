@@ -1,6 +1,6 @@
 ---
 name: mac-arsed-mac-app
-description: Design, build, review, or refactor native macOS apps that follow Mac conventions—menus, keyboard, drag and drop, windows, pasteboard, accessibility—rather than web, Electron, or iPad apps merely packaged for macOS. Use this skill whenever the user is creating, critiquing, planning, or porting a Mac app and wants it to feel genuinely native ("Mac-arsed"), even if they don't use that exact phrase.
+description: Design, build, review, or refactor native macOS apps that follow Mac conventions—menus, keyboard, drag and drop, windows, pasteboard, accessibility—rather than web, Electron, or iPad apps merely packaged for macOS. Use this skill whenever the user is creating, critiquing, planning, or porting a Mac app and wants it to feel genuinely native ("Mac-arsed" or "Mac-assed"), even if they don't use that exact phrase.
 license: Complete terms in LICENSE.txt
 ---
 
@@ -9,6 +9,8 @@ license: Complete terms in LICENSE.txt
 ## Purpose
 
 Create macOS apps that feel like they belong on the Mac. A Mac-arsed Mac app is not just an app that runs on macOS or uses a few native-looking controls. It is an app that embraces macOS conventions, behaves like other good Mac apps, rewards user attention, respects power users, integrates with the system, and contains the small affordances that make users think: "I hoped that would work, and it did."
+
+> The term appears in two spellings: **Mac-arsed** (used throughout this skill) and **Mac-assed** (the originator's spelling — see Sources). Treat them as synonyms.
 
 Use this skill when designing, implementing, reviewing, or refactoring:
 
@@ -47,7 +49,7 @@ Follow these steps whenever creating or reviewing a Mac app. The deep rules behi
 
 **Step 1 — Classify the app.** Identify its Mac shape before designing UI: document-based (editor/CAD/writing tool), shoebox/library (notes, mail, photos, tasks), utility (menu bar, converter, helper), professional workspace (IDE, DAW, creative suite), viewer/browser, or hybrid. Then identify the core objects: what can be opened, saved, selected, dragged, copied, imported/exported, shown in multiple windows, persisted, and undone?
 
-**Step 2 — Choose the native substrate.** Use the least-custom technology that delivers correct Mac behaviour. Prefer AppKit for deeply Mac-specific apps and complex document/window models; SwiftUI for modern declarative UI where it supports the required behaviours, bridging to AppKit where it does not; NSDocument for document apps; and native text/table/outline/collection/split/toolbar/menu/panel APIs wherever possible. Catalyst, shared iPad code, and Electron/web are acceptable only with extra scrutiny — and only when Mac-specific windows, menus, shortcuts, toolbars, settings, drag and drop, pointer, file, accessibility, and pasteboard behaviour are intentionally implemented. A web app in a window is not enough.
+**Step 2 — Choose the native substrate.** Use the least-custom technology that delivers correct Mac behaviour, and use native text/table/outline/collection/split/toolbar/menu/panel APIs wherever possible (NSDocument for document apps). SwiftUI is the default and the direction Apple is investing in; prefer it. A handful of Mac behaviours are still hard or impossible in pure SwiftUI (context-menu focus ring, emphasized selection, source-side drag feedback, type-while-arrow search, precisely arranged toolbars) — where one genuinely blocks the Mac experience, bridge that specific piece to AppKit rather than defaulting to AppKit for the whole project; see [`reference/swiftui-appkit.md`](reference/swiftui-appkit.md). Catalyst, shared iPad code, and Electron/web are acceptable only with extra scrutiny — and only when Mac-specific windows, menus, shortcuts, toolbars, settings, drag and drop, pointer, file, accessibility, and pasteboard behaviour are intentionally implemented. A web app in a window is not enough.
 
 **Step 3 — Design the Mac affordance map.** For each major screen, panel, list, editor, item, and command, map native control/API, selection behaviour, keyboard support, copy/paste, drag/drop, context menu, state to save, and accessibility role. See the affordance-map template in [`reference/design-outputs.md`](reference/design-outputs.md). Every non-trivial UI should have one before implementation.
 
@@ -86,3 +88,9 @@ Do not merely produce a screen that satisfies the immediate feature request. Pro
 6. Is any departure from convention justified by a better user outcome?
 
 A Mac-arsed Mac app is built by answering those questions again and again, even for small details.
+
+## Sources / further reading
+
+- **Accidental Tech Podcast — "Mac-Assed Mac Apps"** (ATP Dev, 28 June 2026): the origin of the term and the underlying philosophy this skill encodes.
+- **Pedro Andrade, "Mac-assed SwiftUI app"** — <https://pfandrade.me/blog/mac-assed-swiftui-app/>: source of the concrete SwiftUI/AppKit specifics in [`reference/swiftui-appkit.md`](reference/swiftui-appkit.md) (named environment values, selection/focus layers, drag-session limits, toolbar placement). The post takes a pointed, AppKit-leaning view; this skill keeps SwiftUI as the default and treats AppKit as a targeted fallback, so read it for the technical detail rather than the stance.
+

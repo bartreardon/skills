@@ -98,6 +98,11 @@ Implement:
 
 Do not trap common shortcuts for surprising actions.
 
+Two Mac-specific patterns worth calling out (with SwiftUI notes in [`swiftui-appkit.md`](swiftui-appkit.md)):
+
+- **Arrow-key movement** in custom lists/grids should be handled deliberately (in SwiftUI, via `.onMoveCommand` on macOS).
+- **Type-ahead while navigating**: the classic Mac search pattern lets the user keep typing in a search field while arrow-keying through the results (Spotlight-style). A focused text field that swallows every key blocks this — preserve the ability to navigate results while the field keeps focus.
+
 ## Text editing
 
 Text controls are sacred because users have deep muscle memory.
@@ -136,6 +141,14 @@ For selectable collections:
 
 If multiple selection would save repetitive work, support it.
 
+macOS distinguishes three layers of highlighting, and native lists get all three right:
+
+- **Active vs inactive window**: selection is vivid in the key window and muted elsewhere (SwiftUI exposes this as `\.appearsActive`).
+- **Selected but not focused ("emphasized")**: a selection in the focused control looks stronger than the same selection in an unfocused control (AppKit's `NSTableRowView.isEmphasized`).
+- **Context-menu target**: right-clicking an unselected item draws a focus ring around that item while the menu is open.
+
+Reproducing all three in custom views is one of the harder parts of Mac UI — see [`swiftui-appkit.md`](swiftui-appkit.md) for which are hard or impossible in pure SwiftUI and the AppKit fallbacks.
+
 ## Drag and drop
 
 Drag and drop is a core Mac behaviour.
@@ -153,6 +166,8 @@ Support, when meaningful:
 - File promises for generated files where appropriate.
 
 When dragging paths or shell-relevant text to terminal-like contexts, escape or represent the data correctly.
+
+Pay attention to **source-side** drag feedback, not just the drop target: the dragged element should give visual feedback while in flight, a drop outside any valid target should be handled gracefully (no elements left stuck in a half-dimmed state), and a cancelled drag should restore the original state. This is an area where pure SwiftUI gives the drag source little visibility into the session — see [`swiftui-appkit.md`](swiftui-appkit.md) for the limitation and the AppKit (`NSDraggingSource`) fallback.
 
 ## Pasteboard and copy/paste
 
@@ -356,7 +371,7 @@ A polished Mac app feels direct.
 Visual design should support Mac behaviour, not replace it.
 
 - Use system spacing, materials, typography, and control sizes where possible.
-- Respect active/inactive window states.
+- Respect active/inactive window states — tint, selection, and emphasis should soften when the window is not key (SwiftUI exposes this as `\.appearsActive`; custom controls should read it).
 - Respect light/dark modes.
 - Avoid excessive custom chrome.
 - Avoid novelty controls where standard controls would be clearer.
