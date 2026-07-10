@@ -91,6 +91,8 @@ A Mac-arsed Mac app is built by answering those questions again and again, even 
 
 ## Sources / further reading
 
+This skill collects and organises principles from the Mac development community; it does not originate them. Credit belongs to the sources below.
+
 - **Origin of the term**: "Mac-assed Mac app" was coined by Collin Donnell and popularised by Brent Simmons; John Gruber discussed it on Daring Fireball, 20 March 2020 (<https://daringfireball.net/linked/2020/03/20/mac-assed-mac-apps>). Simmons' framing — apps that are "unapologetically Mac apps... platform-specific and not trying to wow us with custom not-Mac-like UI" — is the seed of the philosophy here.
 - **Accidental Tech Podcast — "Mac-Assed Mac Apps"** (ATP Dev, 28 June 2026; <https://atp.fm/atp-dev-mac-assed-mac-apps>): the main basis for this skill's discussion. It co-opts the older term rather than originating it.
 - **Paulo Andrade, "Using SwiftUI to Build a Mac-assed App in 2026"** — <https://pfandrade.me/blog/mac-assed-swiftui-app/>: source of the concrete SwiftUI/AppKit specifics in [`reference/swiftui-appkit.md`](reference/swiftui-appkit.md) (named environment values, selection/focus layers, drag-session limits, toolbar placement). The post takes a pointed, AppKit-leaning view; this skill keeps SwiftUI as the default and treats AppKit as a targeted fallback, so read it for the technical detail rather than the stance.
