@@ -167,7 +167,7 @@ Support, when meaningful:
 
 When dragging paths or shell-relevant text to terminal-like contexts, escape or represent the data correctly.
 
-Pay attention to **source-side** drag feedback, not just the drop target: the dragged element should give visual feedback while in flight, a drop outside any valid target should be handled gracefully (no elements left stuck in a half-dimmed state), and a cancelled drag should restore the original state. This is an area where pure SwiftUI gives the drag source little visibility into the session — see [`swiftui-appkit.md`](swiftui-appkit.md) for the limitation and the AppKit (`NSDraggingSource`) fallback.
+Pay attention to **source-side** drag feedback, not just the drop target: the dragged element should give visual feedback while in flight, a drop outside any valid target should be handled gracefully (no elements left stuck in a half-dimmed state), and a cancelled drag should restore the original state. Pure SwiftUI historically gave the drag source little visibility into the session; recent releases add source-side session APIs — see [`swiftui-appkit.md`](swiftui-appkit.md) for current status and the AppKit (`NSDraggingSource`) fallback for older targets.
 
 ## Pasteboard and copy/paste
 
